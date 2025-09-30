@@ -1,6 +1,22 @@
+import csv
+
 def carica_da_file(file_path):
-    """Carica i libri dal file"""
-    # TODO
+
+    try:
+        with open(file_path, "r", newline="", encoding="utf-8") as f:
+            reader = csv.reader(f)
+            n_sezioni = int(next(reader)[0])   # prima riga: numero sezioni
+            biblioteca = [[] for _ in range(n_sezioni)]
+
+            for riga in reader:
+                try:
+                    titolo, autore, anno, pagine, sezione = riga
+                    libro = {
+                        "titolo": titolo.strip(),
+                        "autore": autore.strip(),
+                        "anno": int(anno),
+                        "pagine": int(pagine)
+                    }
 
 
 def aggiungi_libro(biblioteca, titolo, autore, anno, pagine, sezione, file_path):
@@ -9,8 +25,14 @@ def aggiungi_libro(biblioteca, titolo, autore, anno, pagine, sezione, file_path)
 
 
 def cerca_libro(biblioteca, titolo):
-    """Cerca un libro nella biblioteca dato il titolo"""
-    # TODO
+   for i, sezione in enumerate(biblioteca,start=1):
+       for libro in sezione:
+
+           if libro["titolo"].lower()==libro.lower():
+             return i,libro
+    return None
+
+
 
 
 def elenco_libri_sezione_per_titolo(biblioteca, sezione):
